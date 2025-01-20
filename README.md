@@ -1,4 +1,4 @@
-:# Sprague-Grundy periodicity analysis
+# Sprague-Grundy periodicity analysis
 
 
 ## Usage
