@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 try:
     import colorama
     from colorama import Fore, Style
@@ -131,3 +132,22 @@ def print_periodic_segment(grundy_values, start, period, num_periods=3):
         color_index = (i - start) % period
         color = colors[color_index % len(colors)]
         print(f"{color}[{i}] {grundy_values[i]}{Style.RESET_ALL}")
+
+def plot_grundy_values(grundy, l, p, title, filename="grundy_plot.png", num_periods=3):
+    n = len(grundy)
+    plot_range = min(n, l + p * num_periods + 1)
+    x = range(plot_range)
+    plt.figure(figsize=(10, 6))
+    plt.plot(x, grundy[:plot_range], label="Grundy Values", marker="o", linestyle="-")
+
+    plt.axvline(x=l, color="red", linestyle="--", label=f"Start of Period (l={l})")
+    for i in range(1, num_periods + 1):
+        plt.axvline(x=l + i * p, color="orange", linestyle="--")
+
+    plt.title(title)
+    plt.xlabel("Game State (n)")
+    plt.ylabel("Grundy Value")
+    plt.legend()
+    plt.grid()
+    plt.savefig(filename)
+    print(f"Plot saved to {filename}")
